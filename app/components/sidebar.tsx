@@ -1,4 +1,5 @@
 import { useEffect, useRef, useMemo } from "react";
+import Image from "next/image";
 
 import styles from "./home.module.scss";
 
@@ -12,6 +13,8 @@ import DeleteIcon from "../icons/delete.svg";
 import MaskIcon from "../icons/mask.svg";
 import PluginIcon from "../icons/plugin.svg";
 import DragIcon from "../icons/drag.svg";
+import LeftDirectionIcon from "../icons/direction-left.svg";
+import RightDirectionIcon from "../icons/direction-right.svg";
 
 import Locale from "../locales";
 
@@ -72,7 +75,7 @@ function useDragSideBar() {
     });
   };
 
-  const onDragStart = (e: MouseEvent) => {
+  const onDragStart = (e: MouseEvent, sideBarDirection?: string) => {
     // Remembers the initial width each time the mouse is pressed
     startX.current = e.clientX;
     startDragWidth.current = config.sidebarWidth;
@@ -83,7 +86,8 @@ function useDragSideBar() {
         return;
       }
       lastUpdateTime.current = Date.now();
-      const d = e.clientX - startX.current;
+      let d = e.clientX - startX.current;
+      if (sideBarDirection === "row-reverse") d = -d;
       const nextWidth = limit(startDragWidth.current + d);
       config.update((config) => {
         if (nextWidth < MIN_SIDEBAR_WIDTH) {
@@ -128,7 +132,11 @@ function useDragSideBar() {
   };
 }
 
-export function SideBar(props: { className?: string }) {
+export function SideBar(props: {
+  className?: string;
+  sideBarDirection?: string;
+  directionChange?: any;
+}) {
   const chatStore = useChatStore();
 
   // drag side bar
@@ -153,6 +161,23 @@ export function SideBar(props: { className?: string }) {
         transition: isMobileScreen && isIOSMobile ? "none" : undefined,
       }}
     >
+      <div
+        className={`${styles["sidebar-direction"]} ${props.sideBarDirection === "row" ? "" : styles["sidebar-direction-reverse"]}`}
+      >
+        <span
+          onClick={() =>
+            props.directionChange(
+              props.sideBarDirection === "row" ? "row-reverse" : "row",
+            )
+          }
+        >
+          {props.sideBarDirection === "row" ? (
+            <LeftDirectionIcon />
+          ) : (
+            <RightDirectionIcon />
+          )}
+        </span>
+      </div>
       <div className={styles["sidebar-header"]} data-tauri-drag-region>
         <div className={styles["sidebar-title"]} data-tauri-drag-region>
           NextChat
@@ -165,7 +190,8 @@ export function SideBar(props: { className?: string }) {
         </div>
       </div>
 
-      <div className={styles["sidebar-header-bar"]}>
+      {/* <div className={styles["sidebar-header-bar"]}> */}
+      <div className={styles["sidebar-menu"]}>
         <IconButton
           icon={<MaskIcon />}
           text={shouldNarrow ? undefined : Locale.Mask.Name}
@@ -223,6 +249,15 @@ export function SideBar(props: { className?: string }) {
           </div>
         </div>
         <div>
+          <img
+            src="https://github.com/shadcn.png"
+            width={36}
+            height={36}
+            alt="user"
+            className={styles["sidebar-avatar"]}
+          />
+        </div>
+        {/* <div>
           <IconButton
             icon={<AddIcon />}
             text={shouldNarrow ? undefined : Locale.Home.NewChat}
@@ -236,12 +271,12 @@ export function SideBar(props: { className?: string }) {
             }}
             shadow
           />
-        </div>
+        </div> */}
       </div>
 
       <div
-        className={styles["sidebar-drag"]}
-        onPointerDown={(e) => onDragStart(e as any)}
+        className={`${styles["sidebar-drag"]} ${props.sideBarDirection === "row" ? "" : styles["sidebar-drag-reverse"]}`}
+        onPointerDown={(e) => onDragStart(e as any, props.sideBarDirection)}
       >
         <DragIcon />
       </div>

@@ -34,6 +34,7 @@ import AutoIcon from "../icons/auto.svg";
 import BottomIcon from "../icons/bottom.svg";
 import StopIcon from "../icons/pause.svg";
 import RobotIcon from "../icons/robot.svg";
+import AddIcon from "../icons/add.svg";
 
 import {
   ChatMessage,
@@ -524,6 +525,19 @@ export function ChatActions(props: {
         onClick={() => setShowModelSelector(true)}
         text={currentModel}
         icon={<RobotIcon />}
+      />
+
+      <ChatAction
+        onClick={() => {
+          if (config.dontShowMaskSplashScreen) {
+            chatStore.newSession();
+            navigate(Path.Chat);
+          } else {
+            navigate(Path.NewChat);
+          }
+        }}
+        text={Locale.Home.NewChat}
+        icon={<AddIcon />}
       />
 
       {showModelSelector && (

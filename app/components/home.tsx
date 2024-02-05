@@ -125,6 +125,7 @@ const loadAsyncGoogleFont = () => {
 function Screen() {
   const config = useAppConfig();
   const location = useLocation();
+  const [sideBarDirection, setSideBarDirection] = useState("row");
   const isHome = location.pathname === Path.Home;
   const isAuth = location.pathname === Path.Auth;
   const isMobileScreen = useMobileScreen();
@@ -141,7 +142,7 @@ function Screen() {
         styles.container +
         ` ${shouldTightBorder ? styles["tight-container"] : styles.container} ${
           getLang() === "ar" ? styles["rtl-screen"] : ""
-        }`
+        } ${sideBarDirection === "row-reverse" ? styles["sidebar-reverse"] : ""}`
       }
     >
       {isAuth ? (
@@ -150,7 +151,11 @@ function Screen() {
         </>
       ) : (
         <>
-          <SideBar className={isHome ? styles["sidebar-show"] : ""} />
+          <SideBar
+            className={isHome ? styles["sidebar-show"] : ""}
+            sideBarDirection={sideBarDirection}
+            directionChange={setSideBarDirection}
+          />
 
           <div className={styles["window-content"]} id={SlotID.AppBody}>
             <Routes>
