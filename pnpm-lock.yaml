@@ -24,8 +24,8 @@ dependencies:
     specifier: ^1.0.2
     version: 1.0.9(next@13.5.6)(react@18.2.0)
   emoji-picker-react:
-    specifier: ^4.5.15
-    version: 4.7.10(react@18.2.0)
+    specifier: ^4.7.14
+    version: 4.7.14(react@18.2.0)
   fuse.js:
     specifier: ^7.0.0
     version: 7.0.0
@@ -3262,13 +3262,13 @@ packages:
     resolution: {integrity: sha512-JWKDyqAdltuUcyxaECtYG6H4sqysXSLeoXuGUBfRNESMTkj+w+qdb0jya8Z/WI0jVd03WQtCGhS6FOFtlhD5FQ==}
     dev: false
 
-  /emoji-picker-react@4.7.10(react@18.2.0):
-    resolution: {integrity: sha512-vsrEmiwfz+h3zYN3ZR4sZ/ExRWooE3AAMBbgIGgSq5HbCNZoG4ri//WlhxoMhp8QI7X56d8Xyqo7vGGf5cy1Pw==}
+  /emoji-picker-react@4.7.14(react@18.2.0):
+    resolution: {integrity: sha512-3YDrl/VhmHnknUUl78biLi9wTyuxxgiUzy9qs707mADh+0yTtEUTYCyY1O8b9tS8HlX/n8wDsI6Sxx9/SyZtiw==}
     engines: {node: '>=10'}
     peerDependencies:
       react: '>=16'
     dependencies:
-      flairup: 0.0.35
+      flairup: 0.0.38
       react: 18.2.0
     dev: false
 
@@ -3819,8 +3819,8 @@ packages:
       path-exists: 4.0.0
     dev: true
 
-  /flairup@0.0.35:
-    resolution: {integrity: sha512-nXDgTr2WT7UT7HJnNRHRnbo93xs5B3ar5lRWqIbJ6hiwWTSIex5xp56uhEzow6+S5hySoX0mEhzYbLtU3K3A+A==}
+  /flairup@0.0.38:
+    resolution: {integrity: sha512-W9QA5TM7eYNlGoBYwfVn/o6v4yWBCxfq4+EJ5w774oFeyWvVWnYq6Dgt4CJltjG9y/lPwbOqz3jSSr8K66ToGg==}
     dev: false
 
   /flat-cache@3.2.0:
